@@ -31,7 +31,7 @@ angular.module('bbTools', [])
 
           this.removePart = function (attr) {
             _.remove(partInfos, function (aPart) {
-              return aPart.id === attr;
+              return aPart.id === attr ;
             });
           };
 
@@ -62,7 +62,7 @@ angular.module('bbTools', [])
             maxPartID = _.max(partInfos, function (partInfo) {
               return partFromID(partInfo.id).height();
             });
-            maxHeight = partFromID(maxPartID).height();
+            maxHeight = partFromID(maxPartID.id).height();
 
             restoreOldHeights(oldHeights);
 
@@ -96,7 +96,7 @@ angular.module('bbTools', [])
       template: '<div ng-transclude></div>',
       link: function (scope, element, attrs, equalizerCtrl) {
         var attr = attrs.bbEqualizerPart;
-        var keep = attr.keep;
+        var keep = attrs.keep;
         equalizerCtrl.removePart(attr);
         equalizerCtrl.addPart(attr, keep);
       }
