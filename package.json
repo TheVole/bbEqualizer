@@ -1,8 +1,8 @@
 {
-  "name": "bbEqualizer",
+  "name": "bb-equalizer",
   "version": "1.0.2",
   "description": "A directive that allows different elements to be set to the same height",
-  "main": "dist/bb_equalizer.js",
+  "main": "dist/bb-equalizer.js",
   "directories": {
     "test": "test"
   },
