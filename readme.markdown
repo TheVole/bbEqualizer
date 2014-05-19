@@ -40,3 +40,6 @@ and
 ```
 
 **Points to note:** The values of the bb-equalizer-part attribute should be unique and do not have to be the same as the elements ids.
+
+## Thanks
+Thanks go to Myung Kil for his help in this effort. 
