@@ -23,14 +23,9 @@ angular.module('bbTools', [])
           };
 
           this.removePart = function (attr) {
-
-            for (var i = 0; i < partIDs.length; i++) {
-              var aPartID = partIDs[i];
-              if (aPartID === attr) {
-                partIDs.splice(i, 1);
-                break;
-              }
-            }
+            _.remove(partIDs, function (aPartID) {
+              aPartID === attr;
+            });
           };
 
           var saveOldHeights = function () {
