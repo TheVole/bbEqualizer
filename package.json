@@ -1,0 +1,29 @@
+{
+  "name": "bbEqualizer",
+  "version": "0.0.1",
+  "description": "A directive that allows different elements to be set to the same height",
+  "main": "dist/bb_equalizer.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheVole/bbEqualizer.git"
+  },
+  "keywords": [
+    "equalize",
+    "heights"
+  ],
+  "author": "Martin Volerich <martin@volerich.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheVole/bbEqualizer/issues"
+  },
+  "homepage": "https://github.com/TheVole/bbEqualizer",
+  "devDependencies": {
+    "karma": "^0.12.16",
+    "karma-jasmine": "^0.1.5",
+    "karma-osx-reporter": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.1.4"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "bbEqualizer",
+  "version": "0.0.1",
+  "authors": [
+    "Martin Volerich <martin@volerich.com>"
+  ],
+  "description": "A directive that allows different elements to be set to the same height",
+  "keywords": [
+    "equalize",
+    "height"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "jquery": "~2.1.1",
+    "angular": "~1.2.16"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.16"
+  }
+}
