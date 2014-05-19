@@ -51,13 +51,12 @@ angular.module('bbTools', [])
 
             var maxPartID = '';
             var maxHeight = 0;
-            angular.forEach(partIDs, function (partID) {
+
+            maxPartID = _.max(partIDs, function (partID) {
               var part = partFromID(partID);
-              if (part.height() > maxHeight) {
-                maxHeight = part.height();
-                maxPartID = partID;
-              }
+              return part.height();
             });
+            maxHeight = partFromID(maxPartID).height();
 
             restoreOldHeights(oldHeights);
 
