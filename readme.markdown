@@ -3,6 +3,14 @@
 BBEqualizer is a simple Angular.JS directive that allows you to control the 
 height of a set of HTML elements on a web page.
 
+##Installation
+
+The easiest way is to use Bower:
+
+```
+bower install bb-equalizer
+```
+
 ##Usage
 
 There are 2 directives that should be added as attributes to elements:
