@@ -24,7 +24,7 @@ angular.module('bbTools', [])
 
           this.removePart = function (attr) {
             _.remove(partIDs, function (aPartID) {
-              aPartID === attr;
+              return aPartID === attr;
             });
           };
 
@@ -75,10 +75,10 @@ angular.module('bbTools', [])
 
           window.on('resize', function () {
             $scope.$apply();
-          })
+          });
         }
 
-      }
+      };
     }])
 
   .directive('bbEqualizerPart', function () {
@@ -92,5 +92,5 @@ angular.module('bbTools', [])
         equalizerCtrl.removePart(attr);
         equalizerCtrl.addPart(attr);
       }
-    }
+    };
   });

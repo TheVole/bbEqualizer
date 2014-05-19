@@ -19,7 +19,7 @@ module.exports = function(config) {
       'bower_components/lodash/dist/lodash.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'dist/bb_equalizer.js',
+      'dist/bb-equalizer.js',
       'test/**/*.js'
     ],
 
@@ -40,7 +40,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'osx'],
+    reporters: ['progress'],
 
 
     // web server port
