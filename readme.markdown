@@ -52,6 +52,3 @@ Example:
 <div id='side-bar-menu' bb-equalizer-part='sidemenu' keep='true'>...</div>
 <div ng-show></div>
 ```
-
-## Thanks
-Thanks go to Myung Kil for his help in this effort. 
