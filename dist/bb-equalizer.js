@@ -12,26 +12,33 @@ angular.module('bbTools', [])
 
         controller: function ($scope) {
           var window = angular.element($window);
-          var partIDs = [];
+
+          var partInfos = [];
+
+          $scope.$on('$routeChangeSuccess', function () {
+            _.remove(partInfos, function (partID) {
+              return !partID.keep;
+            });
+          });
 
           var partFromID = function (id) {
             return angular.element('[bb-equalizer-part="' + id + '"]');
           };
 
-          this.addPart = function (attr) {
-            partIDs.push(attr);
+          this.addPart = function (attr, keep) {
+            partInfos.push({id: attr, keep: keep});
           };
 
           this.removePart = function (attr) {
-            _.remove(partIDs, function (aPartID) {
-              return aPartID === attr;
+            _.remove(partInfos, function (aPart) {
+              return aPart.id === attr;
             });
           };
 
           var saveOldHeights = function () {
             var oldHeights = [];
-            angular.forEach(partIDs, function (partID) {
-              var part = partFromID(partID);
+            angular.forEach(partInfos, function (partInfo) {
+              var part = partFromID(partInfo.id);
               oldHeights.push(part.height());
               part.css({'transition': 'height 0s', 'height': ''});
             });
@@ -40,7 +47,7 @@ angular.module('bbTools', [])
 
           var restoreOldHeights = function (oldHeights) {
             for (var i = 0; i < oldHeights.length; i++) {
-              var partID = partIDs[i];
+              var partID = partInfos[i].id;
               var part = partFromID(partID);
               part.height(oldHeights[i]);
             }
@@ -52,19 +59,19 @@ angular.module('bbTools', [])
             var maxPartID = '';
             var maxHeight = 0;
 
-            maxPartID = _.max(partIDs, function (partID) {
-              return partFromID(partID).height();
+            maxPartID = _.max(partInfos, function (partInfo) {
+              return partFromID(partInfo.id).height();
             });
             maxHeight = partFromID(maxPartID).height();
 
             restoreOldHeights(oldHeights);
 
-            return { max: maxHeight, num_items: partIDs.length };
+            return { max: maxHeight, num_items: partInfos.length };
           };
 
           var setPartsHeight = function (height) {
-            angular.forEach(partIDs, function (partID) {
-              var part = partFromID(partID);
+            angular.forEach(partInfos, function (partInfo) {
+              var part = partFromID(partInfo.id);
               part.height(height);
             });
           };
@@ -89,8 +96,9 @@ angular.module('bbTools', [])
       template: '<div ng-transclude></div>',
       link: function (scope, element, attrs, equalizerCtrl) {
         var attr = attrs.bbEqualizerPart;
+        var keep = attr.keep;
         equalizerCtrl.removePart(attr);
-        equalizerCtrl.addPart(attr);
+        equalizerCtrl.addPart(attr, keep);
       }
     };
   });
