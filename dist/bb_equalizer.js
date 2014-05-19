@@ -53,8 +53,7 @@ angular.module('bbTools', [])
             var maxHeight = 0;
 
             maxPartID = _.max(partIDs, function (partID) {
-              var part = partFromID(partID);
-              return part.height();
+              return partFromID(partID).height();
             });
             maxHeight = partFromID(maxPartID).height();
 
