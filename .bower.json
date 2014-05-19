@@ -1,6 +1,6 @@
 {
   "name": "bbEqualizer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "authors": [
     "Martin Volerich <martin@volerich.com>"
   ],
@@ -9,6 +9,7 @@
     "equalize",
     "height"
   ],
+  "main": "dist/bb-equalizer.js",
   "license": "MIT",
   "ignore": [
     "**/.*",
