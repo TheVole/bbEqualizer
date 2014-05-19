@@ -44,7 +44,14 @@ and
 Finally, you can also place an additional attribute **keep** on the bb-equalizer-part element 
 when the element is on a shared part of the template and should not be removed from the 
 calculation during a route change when Angular routes and ngShow directives are being used. For example, if you have a side bar menu (outside of an ngView directive) 
-that should be dynamically resized based on changing elements rendered via an ngView directive, then add the **keep** attribute to the side bar menu. 
+that should be dynamically resized based on changing elements rendered via an ngView directive, then add the **keep** attribute to the side bar menu.
+ 
+Example:
+
+```
+<div id='side-bar-menu' bb-equalizer-part='sidemenu' keep='true'>...</div>
+<div ng-show></div>
+```
 
 ## Thanks
 Thanks go to Myung Kil for his help in this effort. 
