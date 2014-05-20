@@ -10,7 +10,7 @@ angular.module('bbTools', [])
 
         template: '<div ng-transclude></div>',
 
-        controller: function ($scope) {
+        controller: ['$scope', function ($scope) {
           var window = angular.element($window);
 
           var partInfos = [];
@@ -81,10 +81,10 @@ angular.module('bbTools', [])
           }, true);
 
           window.on('resize', function () {
-            $scope.$apply();
+            $scope.$apply()
           });
         }
-
+]
       };
     }])
 
