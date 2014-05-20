@@ -81,7 +81,7 @@ angular.module('bbTools', [])
           }, true);
 
           window.on('resize', function () {
-            $scope.$apply()
+            $scope.$apply();
           });
         }
 ]
