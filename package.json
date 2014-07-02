@@ -1,6 +1,6 @@
 {
   "name": "bb-equalizer",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "A directive that allows different elements to be set to the same height",
   "directories": {
     "test": "test"
