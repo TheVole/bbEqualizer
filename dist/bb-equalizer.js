@@ -14,7 +14,8 @@
             name: '@'
           },
 
-          controller: function ($scope) {
+          controller: ['$scope',
+            function ($scope) {
             var controlledParts = $scope.controlledParts = [];
 
             var parts = function (partCollection) {
@@ -72,7 +73,7 @@
             }
 
           }
-        };
+]        };
 
       }])
 
