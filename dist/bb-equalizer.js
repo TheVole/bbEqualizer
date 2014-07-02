@@ -15,17 +15,26 @@
           },
 
           controller: function ($scope) {
-            var controlledParts = Object.create(null);
+            var controlledParts = $scope.controlledParts = [];
 
-            parts = function () {
-              return _.values(controlledParts);
+            var parts = function (partCollection) {
+              var partsSet = partCollection || controlledParts;
+              return _.map(partsSet, function (part) {
+                return part.part;
+              });
             };
+
+            $scope.$on('$routeChangeSuccess', function () {
+              _.remove(controlledParts, function (part) {
+                return !part.keep;
+              });
+            });
 
             var w = angular.element($window);
             w.bind('resize', recalc);
 
-            this.addPart = function (name, part) {
-              controlledParts[name] = part;
+            this.addPart = function (part, keep) {
+              controlledParts.push({part: part, keep: keep});
             };
 
             function recalc() {
@@ -35,7 +44,6 @@
               });
               var height = calculateHeight(parts());
               setAllPartsToHeight(height);
-              console.log("Parts count:", parts().length);
             }
 
             this.recalc = function () {
@@ -43,12 +51,12 @@
             };
 
             $scope.$watch('controlledParts', function (newValue, oldValue) {
-              var height = calculateHeight(newValue);
+              var partsCollection = parts(newValue);
+              var height = calculateHeight(partsCollection);
               setAllPartsToHeight(height);
             });
 
-            function calculateHeight(newValue) {
-              var parts = _.values(newValue);
+            function calculateHeight(parts) {
               var tallest = _(parts).map(function (partElement) {
                 return partElement.height();
               });
@@ -60,6 +68,7 @@
               angular.forEach(parts(), function (partElem) {
                 partElem.height(height + 'px');
               });
+              $scope.height = height;
             }
 
           }
@@ -80,7 +89,7 @@
           replace: true,
           template: '<div ng-transclude></div>',
           link: function (scope, element, attrs, equalizer) {
-            equalizer.addPart(attrs.name, element);
+            equalizer.addPart(element, attrs.keep);
             scope.$watchCollection('refreshOn', function () {
               $timeout(
                 equalizer.recalc,
