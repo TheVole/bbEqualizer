@@ -16,64 +16,82 @@
 
           controller: ['$scope',
             function ($scope) {
-            var controlledParts = $scope.controlledParts = [];
+              var controlledParts = $scope.controlledParts = [];
 
-            var parts = function (partCollection) {
-              var partsSet = partCollection || controlledParts;
-              return _.map(partsSet, function (part) {
-                return part.part;
+              var parts = function (partCollection) {
+                var partsSet = partCollection || controlledParts;
+                return _.chain(partsSet)
+                  .filter(function (part) {
+                    return !part.frozen;
+                  })
+                  .map(function (part) {
+                    return part.part;
+                  });
+              };
+
+              $scope.$on('$routeChangeSuccess', function () {
+                _.remove(controlledParts, function (part) {
+                  return !part.keep;
+                });
               });
-            };
 
-            $scope.$on('$routeChangeSuccess', function () {
-              _.remove(controlledParts, function (part) {
-                return !part.keep;
+              var w = angular.element($window);
+              w.bind('resize', recalc);
+
+              this.addPart = function (part, keep) {
+                controlledParts.push({part: part, keep: keep});
+              };
+
+              this.freezePart = function (partToFreeze) {
+                var thePart = _.find(controlledParts, function (part) {
+                  return part.part === partToFreeze;
+                });
+                thePart.frozen = true;
+              };
+
+              this.unfreezePart = function (partToUnfreeze) {
+                var thePart = _.find(controlledParts, function (part) {
+                  return part.part === partToUnfreeze;
+                });
+                thePart.frozen = false;
+              };
+
+              function recalc() {
+                angular.forEach(parts(), function (partElem) {
+                  partElem.css('height', 'auto');
+                  partElem.css({'transition': 'height 0s', 'height': ''});
+                });
+                var height = calculateHeight(parts());
+                setAllPartsToHeight(height);
+              }
+
+              this.recalc = function () {
+                recalc();
+              };
+
+              $scope.$watch('controlledParts', function (newValue, oldValue) {
+                var partsCollection = parts(newValue);
+                var height = calculateHeight(partsCollection);
+                setAllPartsToHeight(height);
               });
-            });
 
-            var w = angular.element($window);
-            w.bind('resize', recalc);
+              function calculateHeight(parts) {
+                var tallest = _(parts).map(function (partElement) {
+                  return partElement.height();
+                });
+                var max = tallest.max().value();
+                return max;
+              }
 
-            this.addPart = function (part, keep) {
-              controlledParts.push({part: part, keep: keep});
-            };
+              function setAllPartsToHeight(height) {
+                angular.forEach(parts(), function (partElem) {
+                  partElem.height(height + 'px');
+                });
+                $scope.height = height;
+              }
 
-            function recalc() {
-              angular.forEach(parts(), function (partElem) {
-                partElem.css('height', 'auto');
-                partElem.css({'transition': 'height 0s', 'height': ''});
-              });
-              var height = calculateHeight(parts());
-              setAllPartsToHeight(height);
             }
-
-            this.recalc = function () {
-              recalc();
-            };
-
-            $scope.$watch('controlledParts', function (newValue, oldValue) {
-              var partsCollection = parts(newValue);
-              var height = calculateHeight(partsCollection);
-              setAllPartsToHeight(height);
-            });
-
-            function calculateHeight(parts) {
-              var tallest = _(parts).map(function (partElement) {
-                return partElement.height();
-              });
-              var max = tallest.max().value();
-              return max;
-            }
-
-            function setAllPartsToHeight(height) {
-              angular.forEach(parts(), function (partElem) {
-                partElem.height(height + 'px');
-              });
-              $scope.height = height;
-            }
-
-          }
-]        };
+          ]        };
 
       }])
 
