@@ -55,7 +55,9 @@
                 var thePart = _.find(controlledParts, function (part) {
                   return part.part === partToUnfreeze;
                 });
-                thePart.frozen = false;
+                if (thePart) {
+                    thePart.frozen = false;
+                }
               };
 
               function recalc() {
