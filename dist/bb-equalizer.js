@@ -46,7 +46,9 @@
                 var thePart = _.find(controlledParts, function (part) {
                   return part.part === partToFreeze;
                 });
-                thePart.frozen = true;
+                if (thePart) {
+                    thePart.frozen = true;
+                }
               };
 
               this.unfreezePart = function (partToUnfreeze) {
